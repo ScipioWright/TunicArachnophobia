@@ -27,10 +27,7 @@ namespace TunicArachnophobia {
             Harmony Harmony = new Harmony(PluginInfo.GUID);
 
             Harmony.Patch(AccessTools.Method(typeof(SceneLoader), "OnSceneLoaded"), null, new HarmonyMethod(AccessTools.Method(typeof(TunicArachnophobia), "SceneLoader_OnSceneLoaded_PostfixPatch")));
-            //Harmony.Patch(AccessTools.Method(typeof(PlayerCharacter), "Start"), null, new HarmonyMethod(AccessTools.Method(typeof(TunicArachnophobia), "PlayerCharacter_Start_PostfixPatch")));
             Harmony.Patch(AccessTools.Method(typeof(PlayerCharacter), "Update"), null, new HarmonyMethod(AccessTools.Method(typeof(TunicArachnophobia), "PlayerCharacter_Update_PostfixPatch")));
-            Harmony.Patch(AccessTools.Method(typeof(Monster._Die_d__77), "MoveNext"), null, new HarmonyMethod(AccessTools.Method(typeof(TunicArachnophobia), "Monster_Die_MoveNext_PostfixPatch")));
-            Harmony.Patch(AccessTools.Method(typeof(Campfire), "RespawnAtLastCampfire"), new HarmonyMethod(AccessTools.Method(typeof(TunicArachnophobia), "Campfire_RespawnAtLastCampfire_PrefixPatch")));
         }
 
         public static void SceneLoader_OnSceneLoaded_PostfixPatch(Scene loadingScene, LoadSceneMode mode, SceneLoader __instance) {
@@ -96,8 +93,11 @@ namespace TunicArachnophobia {
                 }
             } else {
                 foreach (GameObject Enemy in SceneEnemies) {
-                    if (Enemy.GetComponent<Spider>() != null || Enemy.GetComponent<Voidling>() != null) {
+                    if (Enemy.GetComponent<Spider>() != null) {
                         ReplaceEnemy(Enemy, "Rudeling");
+                        i++;
+                    } else if (Enemy.GetComponent<Voidling>() != null) {
+                        ReplaceEnemy(Enemy, "Scavenger Miner");
                         i++;
                     }
                 }
@@ -108,14 +108,10 @@ namespace TunicArachnophobia {
                 NewEnemy.transform.position = oldEnemy.transform.position;
                 NewEnemy.transform.rotation = oldEnemy.transform.rotation;
                 NewEnemy.transform.parent = oldEnemy.transform.parent;
+                // Not sure the names are necessary
                 NewEnemy.name += $" {i}";
-                int MaxId = 0;
-                foreach (RuntimeStableID id in Resources.FindObjectsOfTypeAll<RuntimeStableID>()) {
-                    if (id.intraSceneID > MaxId) {
-                        MaxId = id.intraSceneID;
-                    }
-                }
-                NewEnemy.GetComponent<RuntimeStableID>().intraSceneID = MaxId + i;
+                // RuntimeStableID is used to determine whether an enemy has been killed. Needs to be unique per enemy
+                NewEnemy.GetComponent<RuntimeStableID>().intraSceneID = Resources.FindObjectsOfTypeAll<RuntimeStableID>().OrderBy(id => id.intraSceneID).Last().intraSceneID + 1;
                 NewEnemy.SetActive(true);
                 EnemiesInCurrentScene.Add(NewEnemy.name, NewEnemy.transform.position.ToString());
                 GameObject.Destroy(oldEnemy);
@@ -130,34 +126,11 @@ namespace TunicArachnophobia {
             Enemies[enemyName].name = $"{enemyName} Prefab";
         }
 
-        //public static void PlayerCharacter_Start_PostfixPatch(PlayerCharacter __instance) {
-
-        //}
-
         public static void PlayerCharacter_Update_PostfixPatch(PlayerCharacter __instance) {
             foreach (string key in Enemies.Keys) {
                 Enemies[key].SetActive(false);
                 Enemies[key].transform.position = new Vector3(-30000f, -30000f, -30000f);
             }
-        }
-
-        public static void Monster_Die_MoveNext_PostfixPatch(Monster._Die_d__77 __instance, ref bool __result) {
-            if (!__result) {
-                string SceneName = CurrentSceneName;
-                if (SceneName != "Cathedral Arena") {
-                    if (!DefeatedEnemyTracker.ContainsKey(SceneName)) {
-                        DefeatedEnemyTracker.Add(SceneName, new List<string>());
-                    }
-                    if (EnemiesInCurrentScene.ContainsKey(__instance.__4__this.name)) {
-                        DefeatedEnemyTracker[SceneName].Add(EnemiesInCurrentScene[__instance.__4__this.name]);
-                    }
-                }
-            }
-        }
-
-        public static bool Campfire_RespawnAtLastCampfire_PrefixPatch(Campfire __instance) {
-            DefeatedEnemyTracker.Clear();
-            return true;
         }
     }
 }
