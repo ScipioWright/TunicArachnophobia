@@ -1,5 +1,7 @@
 Mod to remove spiders from Tunic.
 
+Created by @Silent-Destroyer and @ScipioWright
+
 ## Installation
 - Must use the latest PC version of Tunic. The mod can also be installed on the Steam Deck via Proton using this guide: https://docs.bepinex.dev/articles/advanced/proton_wine.html.
 - Download the correct build/version of BepInEx from here: https://builds.bepinex.dev/projects/bepinex_be/572/BepInEx_UnityIL2CPP_x64_9c2b17f_6.0.0-be.572.zip, or alternatively search for it yourself by going to https://builds.bepinex.dev/projects/bepinex_be, finding <b>Artifact #572</b>, and downloading the <b>"BepInEx Unity IL2CPP for Windows (x64) games"</b> build. 
