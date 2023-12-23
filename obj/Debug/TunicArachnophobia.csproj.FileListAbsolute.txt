@@ -1,6 +1,0 @@
-C:\Program Files (x86)\Steam\steamapps\common\TUNIC\BepInEx\plugins\TunicArachnophobia.dll
-C:\Program Files (x86)\Steam\steamapps\common\TUNIC\BepInEx\plugins\TunicArachnophobia.pdb
-C:\Users\josep\Source\Repos\TunicArachnophobia\obj\Debug\TunicArachnophobia.csproj.AssemblyReference.cache
-C:\Users\josep\Source\Repos\TunicArachnophobia\obj\Debug\TunicArachnophobia.csproj.CoreCompileInputs.cache
-C:\Users\josep\Source\Repos\TunicArachnophobia\obj\Debug\TunicArachnophobia.dll
-C:\Users\josep\Source\Repos\TunicArachnophobia\obj\Debug\TunicArachnophobia.pdb
