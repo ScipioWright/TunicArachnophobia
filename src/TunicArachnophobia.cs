@@ -55,7 +55,12 @@ namespace TunicArachnophobia {
             }
 
             // Loads while game is actually being played
-
+            if (sceneName == "Atoll Redux") {
+                VoidlingTease voidlingTease = GameObject.FindObjectOfType<VoidlingTease>();
+                if (voidlingTease != null) {
+                    GameObject.Destroy(voidlingTease.gameObject);
+                }
+            }
             if (sceneName == "Fortress Reliquary") { 
                 if (GameObject.Find("_Night Encounters") != null) {
                     GameObject.Find("_Night Encounters").SetActive(false);
@@ -64,7 +69,7 @@ namespace TunicArachnophobia {
                     GameObject.Find("_Day Monsters").SetActive(true);
                 }
             }
-            List<GameObject> SceneEnemies = Resources.FindObjectsOfTypeAll<GameObject>().Where(Monster => Monster.GetComponent<Monster>() != null).ToList();
+            List<GameObject> SceneEnemies = Resources.FindObjectsOfTypeAll<GameObject>().Where(Monster => Monster.GetComponent<Monster>() != null && Monster.gameObject.scene.name == sceneName).ToList();
             int i = 0;
             if (sceneName == "East Forest Redux") {
                 foreach (GameObject Enemy in SceneEnemies) {
