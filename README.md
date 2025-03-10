@@ -5,8 +5,6 @@ Created by @Silent-Destroyer and @ScipioWright
 ## Installation
 - Must use the latest PC version of Tunic. The mod can also be installed on the Steam Deck via Proton using this guide: https://docs.bepinex.dev/articles/advanced/proton_wine.html.
 - Download the correct build/version of BepInEx from here: https://github.com/BepInEx/BepInEx/releases/download/v6.0.0-pre.1/BepInEx_UnityIL2CPP_x64_6.0.0-pre.1.zip.
-
-  ![image](https://user-images.githubusercontent.com/110704408/188519149-d9476aa9-55f6-4f38-9ce9-93d137fa71af.png)
 - Extract the zip folder you downloaded from the previous step into your game's install directory (For example: C:\Program Files (x86)\Steam\steamapps\common\TUNIC)
   - For the PC Game Pass version, extract the zip into the "Content" folder, i.e. C:\XboxGames\Tunic\Content
 - Launch the game and close it. This will finalize the BepInEx installation.
