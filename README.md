@@ -11,4 +11,4 @@ Created by @Silent-Destroyer and @ScipioWright
   - For the PC Game Pass version, extract the zip into the "Content" folder, i.e. C:\XboxGames\Tunic\Content
 - Launch the game and close it. This will finalize the BepInEx installation.
 - Download the latest release and copy it into BepInEx/plugins under your game's install directory.
-- To uninstall the mod, either remove/delete the TunicRandomizer.dll file from the plugins folder or rename the winhttp.dll file located in the game's root directory (this will disable all installed mods from running).
+- To uninstall the mod, either remove/delete the TunicArachnophobia.dll file from the plugins folder or rename the winhttp.dll file located in the game's root directory (this will disable all installed mods from running).
